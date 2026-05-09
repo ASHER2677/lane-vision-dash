@@ -59,7 +59,7 @@ export function Dropzone({ onFile, onSample }: Props) {
           className="flex flex-wrap items-center justify-center gap-2 pt-1"
           onClick={(e) => e.stopPropagation()}
         >
-          <span className="font-mono-hud text-[10px] tracking-widest uppercase text-muted-foreground mr-1">
+          <span className="font-mono-hud text-[10px] tracking-widest uppercase text-muted-foreground mr-1 block">
             Or load sample:
           </span>
           {SAMPLES.map((s) => (
