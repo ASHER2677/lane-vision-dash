@@ -1,11 +1,17 @@
 import { useState, useRef } from "react";
-import { Upload, Film } from "lucide-react";
+import { Upload, Film, PlayCircle } from "lucide-react";
 
 interface Props {
   onFile: (file: File) => void;
+  onSample?: (url: string, label: string) => void;
 }
 
-export function Dropzone({ onFile }: Props) {
+const SAMPLES = [
+  { url: "/samples/highway.mp4", label: "Highway · Day" },
+  { url: "/samples/dusk.mp4", label: "Open Road · Dusk" },
+];
+
+export function Dropzone({ onFile, onSample }: Props) {
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
