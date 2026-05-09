@@ -86,7 +86,7 @@ function Index() {
               </button>
             </div>
           ) : (
-            <Dropzone onFile={handleFile} />
+            <Dropzone onFile={handleFile} onSample={(url) => handleSample(url)} />
           )}
 
           {/* Telemetry row */}
