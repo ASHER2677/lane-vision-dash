@@ -21,13 +21,20 @@ function Index() {
   const [telemetry, setTelemetry] = useState({ confidence: 0, heading: 0, speed: 0 });
 
   const handleFile = (file: File) => {
+    if (videoUrl?.startsWith("blob:")) URL.revokeObjectURL(videoUrl);
     setVideoUrl(URL.createObjectURL(file));
   };
 
+  const handleSample = (url: string) => {
+    if (videoUrl?.startsWith("blob:")) URL.revokeObjectURL(videoUrl);
+    setVideoUrl(url);
+  };
+
   const reset = () => {
-    if (videoUrl) URL.revokeObjectURL(videoUrl);
+    if (videoUrl?.startsWith("blob:")) URL.revokeObjectURL(videoUrl);
     setVideoUrl(null);
   };
+
 
   const onTelemetry = useCallback(
     (t: { confidence: number; heading: number; speed: number }) => setTelemetry(t),
@@ -79,7 +86,7 @@ function Index() {
               </button>
             </div>
           ) : (
-            <Dropzone onFile={handleFile} />
+            <Dropzone onFile={handleFile} onSample={(url) => handleSample(url)} />
           )}
 
           {/* Telemetry row */}

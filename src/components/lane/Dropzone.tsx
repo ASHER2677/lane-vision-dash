@@ -1,11 +1,17 @@
 import { useState, useRef } from "react";
-import { Upload, Film } from "lucide-react";
+import { Upload, Film, PlayCircle } from "lucide-react";
 
 interface Props {
   onFile: (file: File) => void;
+  onSample?: (url: string, label: string) => void;
 }
 
-export function Dropzone({ onFile }: Props) {
+const SAMPLES = [
+  { url: "/samples/highway.mp4", label: "Highway · Day" },
+  { url: "/samples/dusk.mp4", label: "Open Road · Dusk" },
+];
+
+export function Dropzone({ onFile, onSample }: Props) {
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -47,6 +53,28 @@ export function Dropzone({ onFile }: Props) {
           <Film className="h-3 w-3" /> or click to select dashcam footage
         </div>
       </div>
+
+      {onSample && (
+        <div
+          className="flex flex-wrap items-center justify-center gap-2 pt-1"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span className="font-mono-hud text-[10px] tracking-widest uppercase text-muted-foreground mr-1">
+            Or load sample:
+          </span>
+          {SAMPLES.map((s) => (
+            <button
+              key={s.url}
+              onClick={() => onSample(s.url, s.label)}
+              className="group flex items-center gap-1.5 px-3 py-1.5 rounded border border-hud/40 hover:border-hud hover:bg-hud/10 transition-colors font-mono-hud text-[11px] uppercase tracking-wider text-hud"
+            >
+              <PlayCircle className="h-3.5 w-3.5 group-hover:scale-110 transition-transform" />
+              {s.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="absolute bottom-4 left-4 right-4 flex justify-between font-mono-hud text-[10px] text-muted-foreground">
         <span>SYS.READY</span>
         <span>AWAITING.INPUT</span>
