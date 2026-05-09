@@ -21,7 +21,18 @@ function Index() {
   const [telemetry, setTelemetry] = useState({ confidence: 0, heading: 0, speed: 0 });
 
   const handleFile = (file: File) => {
+    if (videoUrl?.startsWith("blob:")) URL.revokeObjectURL(videoUrl);
     setVideoUrl(URL.createObjectURL(file));
+  };
+
+  const handleSample = (url: string) => {
+    if (videoUrl?.startsWith("blob:")) URL.revokeObjectURL(videoUrl);
+    setVideoUrl(url);
+  };
+
+  const reset = () => {
+    if (videoUrl?.startsWith("blob:")) URL.revokeObjectURL(videoUrl);
+    setVideoUrl(null);
   };
 
   const reset = () => {
