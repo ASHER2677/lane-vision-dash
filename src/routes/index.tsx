@@ -35,10 +35,6 @@ function Index() {
     setVideoUrl(null);
   };
 
-  const reset = () => {
-    if (videoUrl) URL.revokeObjectURL(videoUrl);
-    setVideoUrl(null);
-  };
 
   const onTelemetry = useCallback(
     (t: { confidence: number; heading: number; speed: number }) => setTelemetry(t),
